@@ -10,6 +10,11 @@ class Robot:
 
   def write(self,b4=1):
     bus.write_i2c_block_data(address,0x00,[self.LEFT,self.RIGHT,self.SPEED,b4])
+  
+  def joystick(self,x,y):
+    self.LEFT = ((x-y)/2) + 127
+    self.RIGHT = ((x+y)/2) + 127
+    self.write()
 
   def speed(self, speed):
     self.SPEED = speed
