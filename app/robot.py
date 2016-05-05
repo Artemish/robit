@@ -12,8 +12,8 @@ class Robot:
     bus.write_i2c_block_data(address,0x00,[self.LEFT,self.RIGHT,self.SPEED,b4])
   
   def joystick(self,x,y):
-    self.LEFT = ((x-y)/2) + 127
-    self.RIGHT = ((x+y)/2) + 127
+    self.LEFT = ((y-x)/2) + 127
+    self.RIGHT = ((y+x)/2) + 127
     self.write()
 
   def speed(self, speed):
@@ -21,31 +21,31 @@ class Robot:
     self.write()
 
   def left(self):
-    self.LEFT += 0x10
+    self.LEFT -= 0x10
     self.write()
 
   def right(self):
-    self.RIGHT += 0x11
+    self.RIGHT -= 0x11
     self.write()
 
   def turnright(self):
-    self.LEFT += 0x10
-    self.RIGHT -= 0x11
+    self.LEFT -= 0x10
+    self.RIGHT += 0x11
     self.write()
 
   def turnleft(self):
-    self.LEFT -= 0x10
-    self.RIGHT += 0x11
-    self.write()
-
-  def forward(self):
-    self.LEFT -= 0x10
+    self.LEFT += 0x10
     self.RIGHT -= 0x11
     self.write()
 
-  def backward(self):
+  def forward(self):
     self.LEFT += 0x10
     self.RIGHT += 0x11
+    self.write()
+
+  def backward(self):
+    self.LEFT -= 0x10
+    self.RIGHT -= 0x11
     self.write()
   
   def stop(self):
