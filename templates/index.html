@@ -24,6 +24,12 @@
     
     start_x = parseInt(x_elem);
     start_y = parseInt(y_elem);
+
+
+    function normalize(val) {
+      return val;
+    }
+
     $( document ).ready(function() {
 
       $( "#reset" ).click(function() {
@@ -47,8 +53,8 @@
           }, false);
             
         $(document).on('dragover', function(evt) {
-          var x = evt.pageX,
-          y = evt.pageY;
+          var x = normalize(evt.pageX),
+          y = normalize(evt.pageY);
 
           if(!moved){
             start_x = x;
@@ -58,8 +64,6 @@
 
           relative_x = start_x - x;
           relative_y = start_y - y;
-          console.log(x, y);
-          console.log(relative_x, relative_y);
           $('#x_pos').html(relative_x);
           $('#y_pos').html(relative_y);
 
