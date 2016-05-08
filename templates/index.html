@@ -25,10 +25,15 @@
     start_x = parseInt(x_elem);
     start_y = parseInt(y_elem);
 
-
-    function normalize(val) {
+  function normalize(val) {
+    if(val > 128){
+      return 128;
+     }else if(val < -127){
+      return -127;
+     }else{
       return val;
-    }
+     }
+  }
 
     $( document ).ready(function() {
 
@@ -53,8 +58,8 @@
           }, false);
             
         $(document).on('dragover', function(evt) {
-          var x = normalize(evt.pageX),
-          y = normalize(evt.pageY);
+          var x = evt.pageX,
+          y = evt.pageY;
 
           if(!moved){
             start_x = x;
@@ -62,8 +67,8 @@
             moved = true;
           }
 
-          relative_x = start_x - x;
-          relative_y = start_y - y;
+          relative_x = normalize(start_x - x);
+          relative_y = normalize(start_y - y);
           $('#x_pos').html(relative_x);
           $('#y_pos').html(relative_y);
 
