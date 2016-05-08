@@ -20,12 +20,19 @@
 	<script type="text/javascript">
     moved = false;
     x_elem = $('#x_pos');
-    y_elem = $('#x_pos');
+    y_elem = $('#y_pos');
     
     start_x = parseInt(x_elem);
     start_y = parseInt(y_elem);
     $( document ).ready(function() {
       console.log( "ready!" );
+
+	$( "#reset" ).click(function() {
+  		$('#x_pos').html(0);
+		$('#y_pos').html(0);
+        moved = false;
+	});
+
 	  namespace = '/test'; // change to an empty string to use the global namespace
 
 	  var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
@@ -65,6 +72,7 @@
 
     <span id="x_pos">0</span>
     <span id="y_pos">0</span>
+    <div id="reset">reset</div>
       <center>
         <img id="johnny5" src="{{url_for('static', filename='number5ao7.jpg') }}">
       </center>
