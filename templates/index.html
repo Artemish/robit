@@ -25,10 +25,13 @@
     start_x = parseInt(x_elem);
     start_y = parseInt(y_elem);
 
+    max_val = 128;
+    min_val = -127;
+
   function normalize(val) {
-    if(val > 128){
+    if(val > max_val){
       return 128;
-     }else if(val < -127){
+     }else if(val < min_val){
       return -127;
      }else{
       return val;
