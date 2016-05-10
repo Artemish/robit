@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask-SocketIO Test</title>
+	<script type=text/javascript src="{{
+  		url_for('static', filename='jquery-2.2.3.min.js') }}">
+		</script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+
+<style>
+  img {
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-right: 150px;
+      margin-left: 80px;
+      display: inline;
+  } 
+  span.coords{
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <script type="text/javascript">
+    moved = false;
+    x_elem = $('#x_pos');
+    y_elem = $('#y_pos');
+    
+    start_x = parseInt(x_elem);
+    start_y = parseInt(y_elem);
+
+    max_val = 128;
+    min_val = -127;
+
+    send_count = 0;
+
+    function normalize(val) {
+      if(val > max_val){
+        return 128;
+       }else if(val < min_val){
+        return -127;
+       }else{
+        return val;
+       }
+    }
+
+    $( document ).ready(function() {
+
+      $( "#reset" ).click(function() {
+        $('#x_pos').html(0);
+        $('#y_pos').html(0);
+        moved = false;
+      });
+
+      namespace = '/test'; // change to an empty string to use the global namespace
+
+      var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+        document.addEventListener("dragover", function(e){
+          e = e || window.event;
+          var dragX = e.pageX, dragY = e.pageY;
+          //console.log("X: "+dragX+" Y: "+dragY);
+        }, false);
+
+        document.addEventListener("ondragstart",
+          function(e){
+            alert("start");
+          }, false);
+            
+        $(document).on('dragover', function(evt) {
+          var x = evt.pageX,
+          y = evt.pageY;
+
+          if(!moved){
+            start_x = x;
+            start_y = y;
+            moved = true;
+          }
+
+          relative_x = normalize(start_x - x);
+          relative_y = normalize(start_y - y);
+          $('#x_pos').html(relative_x);
+          $('#y_pos').html(relative_y);
+
+	  send_count += 1;
+          socket.emit('join', {x_pos: relative_x, y_pos: relative_y, count: send_count});
+      });
+    });
+
+    </script>
+    <span class="coords" id="x_pos">0</span>
+    <span class="coords" id="y_pos">0</span>
+      <img id="johnny5" src="{{url_for('static', filename='number5ao7.jpg') }}">
+      <iframe class="video" src="http://192.168.1.1:80" width="530" height="400">
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    <div id="reset">reset</div>
+    <div id="result"></div>
+</body>
+
+</html>
