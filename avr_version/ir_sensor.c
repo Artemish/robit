@@ -14,6 +14,5 @@ uint16_t read_analog(uint8_t ch) {
 }
 
 uint16_t convert_to_cm(uint16_t signal){
-   
-   return ((6787 / (signal - 3)) - 4)
+   return ((6787 / (signal - 3)) - 4);
 }

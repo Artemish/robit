@@ -34,13 +34,28 @@ int main() {
   snprintf(buf, 64, "Target: %d\r\n", set_target(0, 50));
   sendString((uint8_t *) buf);
 
-  // snprintf(buf, 64, "First: [%d,%d,%d,%d,%d]\r\n", i2c_rxbuffer[0], i2c_rxbuffer[1], i2c_rxbuffer[2], i2c_rxbuffer[3], i2c_rxbuffer[4]);
-
   while (1) {
-    snprintf(buf, 64, "Drive signal: [%d,%d]\r\n", OCR1A, OCR1B);
-    sendString((uint8_t *) buf);
-    set_target(0, i2c_rxbuffer[0]);
-    set_target(1, i2c_rxbuffer[1]);
-    _delay_ms(200);
+    int ir_signal = read_analog(0);
+
+    char danger_zone = (ir_signal > 380) || (ir_signal < 150);
+    char t1 = i2c_rxbuffer[0];
+    char t2 = i2c_rxbuffer[0];
+    char moving_forward = (t1 > 0) && (t2 > 0);
+
+    if (danger_zone && moving_forward) {
+        snprintf(buf, 64, "Stopped! IR Signal: %d\r\n", ir_signal);
+        sendString((uint8_t *) buf);
+
+        set_target(0, 0);
+        set_target(1, 0);
+    } else {
+      snprintf(buf, 64, "Going! IR Signal: %d\r\n", ir_signal);
+      sendString((uint8_t *) buf);
+
+      set_target(0, t1);
+      set_target(1, t2);
+    }
+
+    _delay_ms(50);
   }
 }
