@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }} - microblog</title>
+		<script type=text/javascript src="{{
+  		url_for('static', filename='jquery-2.2.3.min.js') }}">
+		</script>
+  </head>
+  <body>
+	<script type="text/javascript">
+    $( document ).ready(function() {
+      console.log( "ready!" );
+
+      document.addEventListener("dragover", function(e){
+        e = e || window.event;
+        var dragX = e.pageX, dragY = e.pageY;
+
+        console.log("X: "+dragX+" Y: "+dragY);
+      }, false);
+          
+      $(document).on('dragover', function(evt) {
+        var x = evt.pageX,
+        y = evt.pageY;
+
+        console.log(x, y);
+      });
+    });
+	</script>
+		<button id="button">Click me</button>
+      <h1>Hello!</h1>
+      <img src="{{url_for('static', filename='number5ao7.jpg') }}">
+  </body>
+</html>
+
