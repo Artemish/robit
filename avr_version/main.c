@@ -6,6 +6,7 @@
 #include "include/init.h"
 #include "include/motor.h"
 #include "include/i2c_slave.h"
+#include "include/ir_sensor.h"
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -15,6 +16,14 @@
 #include <stdlib.h>
 
 #include "include/global_vars.h"
+
+// Two new functions, 
+// uint16_t read_analog(uint8_t)
+// uint16_t convert_to_cm(uint16_t)
+// read_analog will capture the analog input from ADC#, valid ports are 0, 1,3-7.  Use port 0, it corresponds with PF0
+// convert_to_cm will take the returned value from read_analog an convert it to cm.
+// No clue where you want it
+// Josh
 
 int main() {
   init();

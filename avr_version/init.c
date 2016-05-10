@@ -16,6 +16,7 @@
 inline void init_vars(void);
 inline void init_gpio(void);
 inline void init_timers(void);
+inline void init_ir(void);
 
 void pause(void);
 void unpause(void);
@@ -33,6 +34,7 @@ void init() {
   sendString((uint8_t *) "Reached the PCINT\r\n");
   init_motor();
   init_i2c();
+  init_ir();
 }
 
 void init_timers(void) {
@@ -100,4 +102,10 @@ inline void init_gpio() {
   write_register(&PCMSK0, PCINT1, 0x1);
   write_register(&PCMSK0, PCINT2, 0x1);
   write_register(&PCMSK0, PCINT3, 0x1);
+}
+
+// JN
+inline void init_ir() {
+   ADMUX = (1<<REFS0);
+   ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
 }
