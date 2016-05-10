@@ -219,8 +219,6 @@ void adjust_duty_cycle(int16_t ten_thousandths, uint8_t motor) {
   // Restrict the range of magnitudes
   if (magnitude < 100) {
      magnitude = 0;
-  } else if (magnitude < 1000) {
-    magnitude = 1000;
   } else if (magnitude > 7500) {
     magnitude = 7500;
   } 
