@@ -38,13 +38,13 @@ import robot
 import code
 from threading import Thread
 from flask import Flask, render_template, session, request
-from flask_socketio import SocketIO, emit, join_room, leave_room, \
-    close_room, rooms, disconnect
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
+global delay
 
 @app.route('/')
 def index():
@@ -54,11 +54,6 @@ def index():
 def join(message):
     x = int(message['x_pos'])
     y = int(message['y_pos'])
-    robot.joystick(x,y)
-
-def move(message):
-    x = int(message['room'])
-    y = int(message['room'])
     robot.joystick(x,y)
 
 if __name__ == '__main__':

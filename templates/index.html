@@ -2,11 +2,8 @@
 <html>
 <head>
     <title>Flask-SocketIO Test</title>
-	<script type=text/javascript src="{{
-  		url_for('static', filename='jquery-2.2.3.min.js') }}">
-		</script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
-
+	<script type=text/javascript src="{{url_for('static', filename='jquery-2.2.3.min.js') }}"></script>
+  	<script type=text/javascript src="{{url_for('static', filename='socket.io.min.js') }}"></script>
 <style>
   img {
       margin-top: 100px;
@@ -16,7 +13,7 @@
       display: inline;
   } 
   span.coords{
-    display: block;
+    display: inline-block;
   }
 </style>
 </head>
@@ -45,6 +42,13 @@
     }
 
     $( document ).ready(function() {
+
+      $("#johnny5").mouseup(function() {
+        socket.emit('join', {x_pos: 0, y_pos: 0, count: send_count});
+        $('#x_pos').html(0);
+        $('#y_pos').html(0);
+        moved = false;
+      });
 
       $( "#reset" ).click(function() {
         $('#x_pos').html(0);
@@ -76,7 +80,7 @@
             moved = true;
           }
 
-          relative_x = normalize(start_x - x);
+          relative_x = normalize(x - start_x);
           relative_y = normalize(start_y - y);
           $('#x_pos').html(relative_x);
           $('#y_pos').html(relative_y);
@@ -87,8 +91,12 @@
     });
 
     </script>
-    <span class="coords" id="x_pos">0</span>
-    <span class="coords" id="y_pos">0</span>
+    <div>X:
+      <span class="coords" id="x_pos">0</span>
+    </div>
+    <div>Y:
+      <span class="coords" id="y_pos">0</span>
+    </div>
       <img id="johnny5" src="{{url_for('static', filename='number5ao7.jpg') }}">
       <iframe class="video" src="http://192.168.1.1:80" width="530" height="400">
         <p>Your browser does not support iframes.</p>
