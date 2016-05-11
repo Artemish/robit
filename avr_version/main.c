@@ -39,7 +39,7 @@ int main() {
 
     char danger_zone = (ir_signal > 380) || (ir_signal < 150);
     char t1 = i2c_rxbuffer[0];
-    char t2 = i2c_rxbuffer[0];
+    char t2 = i2c_rxbuffer[1];
     char moving_forward = (t1 > 0) && (t2 > 0);
 
     if (danger_zone && moving_forward) {
