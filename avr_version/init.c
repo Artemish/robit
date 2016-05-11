@@ -31,7 +31,6 @@ void init() {
   init_gpio();
   init_timers();
   setupUART();
-  sendString((uint8_t *) "Reached the PCINT\r\n");
   init_motor();
   init_i2c();
   init_ir();
@@ -80,7 +79,7 @@ void init_timers(void) {
 }
 
 inline void init_vars() {
-  currently_logging = 1;
+  currently_logging = 0;
   // Reset all timer counts
   TCNT0 = TCNT1 = TCNT3 = 0;
 }
