@@ -1,3 +1,3 @@
 ## Our robit
 
-![robit](avr_version/doc/robit.jpg)
+![robit](avr_version/doc/robot.jpg)
