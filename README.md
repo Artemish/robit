@@ -1,3 +1,3 @@
 ## Our robit
 
-![robit](https://raw.github.com/artemish/robit/master/avr_version/doc/robot.jpg)
+![robit](https://github.com/artemish/robit/raw/master/avr_version/doc/robot.jpg)
