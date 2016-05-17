@@ -1,3 +1,3 @@
 ## Our robit
 
-![robit](../blob/master/avr_version/doc/robot.jpg)
+![robit](/avr_version/doc/robot.jpg)
